@@ -16,7 +16,7 @@ config = context.config
 # Подгружаем пароль и формируем ссылку
 load_dotenv()
 db_password = os.getenv("DB_PASSWORD")
-DATABASE_URL = f"mysql+pymysql://root:{db_password}@localhost:3306/tennis_db"
+DATABASE_URL = f"mysql+pymysql://tennis_user:secure_password@localhost/tennis_db"
 
 # Передаем динамическую ссылку в настройки Alembic
 config.set_main_option("sqlalchemy.url", DATABASE_URL)

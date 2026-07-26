@@ -6,7 +6,7 @@ from sqlalchemy.orm import sessionmaker
 
 load_dotenv()
 db_password = os.getenv("DB_PASSWORD")
-DATABASE_URL = f"mysql+pymysql://root:{db_password}@localhost:3306/tennis_db"
+DATABASE_URL = f"mysql+pymysql://tennis_user:secure_password@localhost/tennis_db"
 
 # Создаем движок (подключение) ОДИН раз
 engine = create_engine(url = DATABASE_URL
