@@ -10,7 +10,7 @@
             <div class="new-match-image"></div>
             <div class="form-container center">
                 <form method="post" action="/new-match">
-                    <p style="color: red;">Sample error message</p>
+                    {% if error %}<p style="color: red;">{{ error }}</p> {% endif %}
                     <label class="label-player" for="player1">Player one</label>
                     <input id="player1" name="player1" class="input-player" placeholder="Name" type="text" required title="Enter a name">
                     <label class="label-player" for="player2">Player two</label>

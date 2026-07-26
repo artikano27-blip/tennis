@@ -14,6 +14,17 @@ def HandleNewMatch(environ, start_response, env):
         player_one = form_data.get("player1", [""])[0]
         player_two = form_data.get("player2", [""])[0]
 
+        if player_one.lower() == player_two.lower():
+
+            start_response('200 OK', [('Content-type', 'text/html; charset=utf-8')])
+            template = env.get_template("new-match.html")
+
+            rendered_html = template.render(
+                page_title="Tennis Scoreboard | New Match",
+                error="Имена игроков должны быть разными!"
+            )
+            return [rendered_html.encode("utf-8")]
+
         with SessionLocal() as session:
             player1 = AddPlayer(session, player_one)
             player2 = AddPlayer(session, player_two)
