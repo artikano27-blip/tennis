@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<main>
+    <div class="container">
+        <h1>Current match</h1>
+        <div class="current-match-image"></div>
+        <section class="score">
+            <table class="table">
+                <thead class="result">
+                <tr>
+                    <th class="table-text">Player</th>
+                    <th class="table-text">Sets</th>
+                    <th class="table-text">Games</th>
+                    <th class="table-text">Points</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="player1">
+                    <td class="table-text">{{current_match.player1.name}}</td>
+                    <td class="table-text">{{player1_sets}}</td>
+                    <td class="table-text">{{player1_games}}</td>
+                    <td class="table-text">{{player1_score}}</td>
+
+                    <td class="table-text">
+                        <form method="POST" action="/match-score">
+                        <input type="hidden" name="point_winner" value= "{{ current_match.player1_id }}">
+                        <input type="hidden" name="match_uuid" value="{{ current_match.uuid }}">
+                        <input class="form-button" type="submit" value="Score">
+                        </form>
+                    </td>
+                </tr>
+
+                <tr class="player2">
+                    <td class="table-text">{{current_match.player2.name}}</td>
+                    <td class="table-text">{{player2_sets}}</td>
+                    <td class="table-text">{{player2_games}}</td>
+                    <td class="table-text">{{player2_score}}</td>
+                    <td class="table-text">
+                        <form method="POST" action="/match-score">
+                        <input type="hidden" name="point_winner" value= "{{ current_match.player2_id }}">
+                        <input type="hidden" name="match_uuid" value="{{ current_match.uuid }}">
+                        <input class="form-button" type="submit" value="Score">
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+</main>
+<footer>
+    <div class="footer">
+        <p>&copy; Tennis Scoreboard, project from <a href="https://zhukovsd.github.io/java-backend-learning-course/">zhukovsd/java-backend-learning-course</a> roadmap.</p>
+    </div>
+</footer>
+
+{% endblock %}
