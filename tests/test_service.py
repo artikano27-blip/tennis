@@ -3,7 +3,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 from service import StartMatch
-# Импортируем твои модели и функцию, которую будем тестировать
+
 from src.models import Base, Player, Match
 from src.service import AddPoints
 
@@ -15,18 +15,18 @@ def temp_session():
     Session = sessionmaker(bind=engine)
     session = Session()
 
-    # 1. Сначала сохраняем игроков, чтобы у них появились ID
+
     player1 = Player(name="Иван")
     player2 = Player(name="Петр")
     session.add_all([player1, player2])
     session.commit()
 
-    # 2. Теперь создаем матч с готовыми ID
+
     match1 = StartMatch(session, player1.id, player2.id)
 
-    yield session  # Отдаем сессию в тестовую функцию
+    yield session  
 
-    session.close()  # Завершаем работу сессии после теста
+    session.close()  
 
 def test_win_game_at_40_0(temp_session):
     match = temp_session.query(Match).first()
