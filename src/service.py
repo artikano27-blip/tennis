@@ -2,6 +2,7 @@ from uuid import uuid4
 
 from models import Player, Match
 from sqlalchemy.exc import IntegrityError
+from sqlalchemy import or_
 
 
 def AddPlayer(session, player_name):
@@ -139,15 +140,25 @@ def GetPageMatches(session,current_page,filter):
     query = session.query(Match).filter(Match.winner_id.isnot(None))
 
     if filter:
-        query = query.filter(Match.winner.has(name=filter))
+        query = query.filter(
+            or_(
+                Match.player1.has(name=filter),
+                Match.player2.has(name=filter)
+            )
+        )
 
-    return query.order_by(Match.id.desc()).limit(5).offset((current_page-1) * 5)
+    return query.order_by(Match.id.desc()).limit(5).offset((current_page-1) * 5).all()
 
 def CountAllMatches(session,filter):
     query = session.query(Match).filter(Match.winner_id.isnot(None))
 
     if filter:
-        query = query.filter(Match.winner.has(name=filter))
+        query = query.filter(
+            or_(
+                Match.player1.has(name=filter),
+                Match.player2.has(name=filter)
+            )
+        )
 
     return query.count()
 

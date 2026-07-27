@@ -54,9 +54,3 @@ def application(environ, start_response):
 
     elif path == "/matches":
         return HandleMatches(environ,start_response,env)
-
-
-
-
-
-
